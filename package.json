@@ -1,0 +1,20 @@
+{
+  "name": "layered-config",
+  "main": "./lib/index",
+  "version": "0.0.0",
+  "description": "For exploring the concept of a layered configuration approach for Atom",
+  "activationEvents": ["layered-config:toggle"],
+  "repository": "https://github.com/lee-dohm/layered-config",
+  "license": "MIT",
+  "engines": {
+    "atom": ">0.50.0"
+  },
+  "dependencies": {
+    "fs-plus": "^2.2.6",
+    "season": "^2.0.0",
+    "underscore-plus": "^1.5.1"
+  },
+  "devDependencies": {
+    "temp": "^0.8.1"
+  }
+}

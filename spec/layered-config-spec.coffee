@@ -42,3 +42,7 @@ describe "LayeredConfig", ->
       layeredConfig.set('foo.bar', 5)
 
       expect(CSON.readFileSync(configPath)).toEqual(foo: { bar: 3 })
+
+  describe '.getConfigPaths()', ->
+    it 'returns the array of paths in priority order', ->
+      expect(layeredConfig.getConfigPaths()).toEqual([configPath, atom.config.getUserConfigPath()])

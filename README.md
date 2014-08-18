@@ -10,6 +10,8 @@ The layered effect is achieved by a configuration object wrapping another config
 
 ## API
 
+This is the basic API that all conforming configuration classes will use.
+
 ### `get(keyPath)`
 
 Retrieves the value at the given key path, with the outer object's values taking precedence over the inner object's values. If the value at the given key path is an object, the objects are merged.

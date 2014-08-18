@@ -43,18 +43,34 @@ class ConfigWrapper
     path = @wrappedConfig.getConfigPaths?() ? @wrappedConfig.getUserConfigPath?()
     [@configPath].concat(path)
 
+  # Public: Gets the value at the given path as an integer.
+  #
+  # keyPath - Path {String} from which to retrieve the value.
+  #
+  # Returns the value as an {Integer}.
   getInt: (keyPath) ->
     parseInt(@get(keyPath))
 
+  # Public: Gets the value at the given path as a positive integer.
+  #
+  # keyPath - Path {String} from which to retrieve the value.
+  #
+  # Returns the value as a positive {Integer}.
   getPositiveInt: (keyPath, defaultValue=0) ->
     Math.max(@getInt(keyPath), 0) or defaultValue
 
+  # Public: Gets the merged set of all settings.
+  #
+  # Returns an {Object} containing all settings.
   getSettings: ->
     if fs.existsSync(@configPath)
       @settings = CSON.readFileSync(@configPath)
 
     _.deepExtend(@settings, @wrappedConfig.getSettings())
 
+  # Public: Indicates whether the value at the given path is the default.
+  #
+  # Returns a {Boolean} indicating whether the value is the default.
   isDefault: (keyPath) ->
     @wrappedConfig.isDefault(keyPath) and (not _.valueForKeyPath(@settings, keyPath)?)
 

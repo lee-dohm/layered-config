@@ -1,9 +1,15 @@
 CSON = require 'season'
+Delegator = require 'delegato'
 fs = require 'fs-plus'
 _ = require 'underscore-plus'
 
 module.exports =
 class LayeredConfig
+  Delegator.includeInto(this)
+
+  @delegatesMethods 'getDefault', 'pushAtKeyPath', 'removeAtKeyPath', 'restoreDefault', 'toggle',
+    'unshiftAtKeyPath', toProperty: 'wrappedConfig'
+
   constructor: (@wrappedConfig, @configPath) ->
     @settings = {}
 
@@ -37,9 +43,6 @@ class LayeredConfig
     path = @wrappedConfig.getConfigPaths?() ? @wrappedConfig.getUserConfigPath?()
     [@configPath].concat(path)
 
-  getDefault: (keyPath) ->
-    @wrappedConfig.getDefault(keyPath)
-
   getInt: (keyPath) ->
     parseInt(@get(keyPath))
 
@@ -55,24 +58,9 @@ class LayeredConfig
   isDefault: (keyPath) ->
     @wrappedConfig.isDefault(keyPath) and (not _.valueForKeyPath(@settings, keyPath)?)
 
-  pushAtKeyPath: (keyPath, value) ->
-    @wrappedConfig(keyPath, value)
-
-  removeAtKeyPath: (keyPath, value) ->
-    @wrappedConfig(keyPath, value)
-
-  restoreDefault: (keyPath) ->
-    @wrappedConfig(keyPath)
-
   # Public: Sets the value at the given path in the wrapped configuration file.
   #
   # keyPath - Path {String} at which to set the value.
   # value - Value to set.
   set: (keyPath, value) ->
     @wrappedConfig.set(keyPath, value)
-
-  toggle: (keyPath) ->
-    @wrappedConfig.toggle(keyPath)
-
-  unshiftAtKeyPath: (keyPath) ->
-    @wrappedConfig.unshiftAtKeyPath(keyPath)

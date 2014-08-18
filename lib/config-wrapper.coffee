@@ -4,7 +4,7 @@ fs = require 'fs-plus'
 _ = require 'underscore-plus'
 
 module.exports =
-class LayeredConfig
+class ConfigWrapper
   Delegator.includeInto(this)
 
   @delegatesMethods 'getDefault', 'pushAtKeyPath', 'removeAtKeyPath', 'restoreDefault', 'toggle',

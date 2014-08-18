@@ -37,9 +37,42 @@ class LayeredConfig
     path = @wrappedConfig.getConfigPaths?() ? @wrappedConfig.getUserConfigPath?()
     [@configPath].concat(path)
 
+  getDefault: (keyPath) ->
+    @wrappedConfig.getDefault(keyPath)
+
+  getInt: (keyPath) ->
+    parseInt(@get(keyPath))
+
+  getPositiveInt: (keyPath, defaultValue=0) ->
+    Math.max(@getInt(keyPath), 0) or defaultValue
+
+  getSettings: ->
+    if fs.existsSync(@configPath)
+      @settings = CSON.readFileSync(@configPath)
+
+    _.deepExtend(@settings, @wrappedConfig.getSettings())
+
+  isDefault: (keyPath) ->
+    @wrappedConfig.isDefault(keyPath) and (not _.valueForKeyPath(@settings, keyPath)?)
+
+  pushAtKeyPath: (keyPath, value) ->
+    @wrappedConfig(keyPath, value)
+
+  removeAtKeyPath: (keyPath, value) ->
+    @wrappedConfig(keyPath, value)
+
+  restoreDefault: (keyPath) ->
+    @wrappedConfig(keyPath)
+
   # Public: Sets the value at the given path in the wrapped configuration file.
   #
   # keyPath - Path {String} at which to set the value.
   # value - Value to set.
   set: (keyPath, value) ->
     @wrappedConfig.set(keyPath, value)
+
+  toggle: (keyPath) ->
+    @wrappedConfig.toggle(keyPath)
+
+  unshiftAtKeyPath: (keyPath) ->
+    @wrappedConfig.unshiftAtKeyPath(keyPath)

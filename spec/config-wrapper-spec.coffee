@@ -39,6 +39,10 @@ describe "ConfigWrapper", ->
 
       expect(configWrapper.get('foo')).toEqual(a: 3, b: 5, c: 9, bar: 9, baz: 9)
 
+  describe '.getConfigPaths()', ->
+    it 'returns the array of paths in priority order', ->
+      expect(configWrapper.getConfigPaths()).toEqual([configPath, atom.config.getUserConfigPath()])
+
   describe '.getDefault()', ->
     it 'gets the value from the wrapped configuration object', ->
       expect(configWrapper.getDefault('foo.bar')).toEqual(9)
@@ -76,7 +80,3 @@ describe "ConfigWrapper", ->
       configWrapper.set('foo.bar', 5)
 
       expect(CSON.readFileSync(configPath)).toEqual(foo: { bar: 3 })
-
-  describe '.getConfigPaths()', ->
-    it 'returns the array of paths in priority order', ->
-      expect(configWrapper.getConfigPaths()).toEqual([configPath, atom.config.getUserConfigPath()])

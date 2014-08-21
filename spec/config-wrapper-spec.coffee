@@ -69,6 +69,20 @@ describe "ConfigWrapper", ->
     it 'returns false when the value is not the default', ->
       expect(configWrapper.isDefault('foo.bar')).toBeFalsy()
 
+  describe '.pushAtKeyPath()', ->
+    it 'sets the value on the wrapped configuration object', ->
+      atom.config.set('foo', a: [1, 3, 5])
+      configWrapper.pushAtKeyPath('foo.a', 7)
+
+      expect(atom.config.get('foo.a')).toEqual([1, 3, 5, 7])
+
+  describe '.removeAtKeyPath()', ->
+    it 'sets the value on the wrapped configuration object', ->
+      atom.config.set('foo', a: [1, 3, 5])
+      configWrapper.removeAtKeyPath('foo.a', 3)
+
+      expect(atom.config.get('foo.a')).toEqual([1, 5])
+
   describe '.set()', ->
     it 'sets the value to the wrapped configuration object', ->
       configWrapper.set('foo.bar', 5)

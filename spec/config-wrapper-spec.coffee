@@ -83,6 +83,12 @@ describe "ConfigWrapper", ->
 
       expect(atom.config.get('foo.a')).toEqual([1, 5])
 
+  describe '.restoreDefault()', ->
+    it 'restores the default value on the wrapped configuration object', ->
+      configWrapper.restoreDefault('foo.bar')
+
+      expect(configWrapper.get('foo.bar')).toBe(9)
+
   describe '.set()', ->
     it 'sets the value to the wrapped configuration object', ->
       configWrapper.set('foo.bar', 5)
@@ -94,3 +100,16 @@ describe "ConfigWrapper", ->
       configWrapper.set('foo.bar', 5)
 
       expect(CSON.readFileSync(configPath)).toEqual(foo: { bar: 3 })
+
+  describe '.toggle()', ->
+    it 'sets the value on the wrapped configuration object', ->
+      configWrapper.toggle('foo.boolean')
+
+      expect(atom.config.get('foo.boolean')).toBeTruthy()
+
+  describe '.unshiftAtKeyPath()', ->
+    it 'sets the value on the wrapped configuration object', ->
+      atom.config.set('foo', a: [1, 3, 5])
+      configWrapper.unshiftAtKeyPath('foo.a', 11)
+
+      expect(atom.config.get('foo.a')).toEqual([11, 1, 3, 5])

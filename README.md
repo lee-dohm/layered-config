@@ -33,6 +33,44 @@ I propose an API be added to the general configuration object for constructing t
 * `atom.config.forScope(scopeName)` will refer to a project-specific syntax-specific configuration object (objects 1-4 above)
 * `editor.config` will refer to a project-specific syntax-specific configuration object (objects 1-4 above)
 
+### Syntax-Specific Settings
+
+With the above strategy, I would recommend just storing syntax-specific settings right alongside their general counterparts. For example, the [wrap-guide package](https://atom.io/packages/wrap-guide) already supports syntax-specific settings in a package-specific manner. Here is my configuration for wrap-guide:
+
+```coffeescript
+'wrap-guide':
+  'columns': [
+    {
+      'scope': 'source.gfm'
+      'column': -1
+    }
+    {
+      'scope': 'text.git-commit'
+      'column': 72
+    }
+    {
+      'scope': 'text.haml'
+      'column': -1
+    }
+  ]
+```
+
+In the new format, this would change to:
+
+```coffeescript
+'source':
+  'gfm':
+    'wrap-guide':
+      'column': -1
+'text':
+  'git-commit':
+    'wrap-guide':
+      'column': 72
+  'haml':
+    'wrap-guide':
+      'column': -1
+```
+
 ## API
 
 This is the basic API that all conforming configuration classes will use.

@@ -5,6 +5,6 @@ SharedApi = require './shared/api-spec'
 
 describe 'ScopeWrapper', ->
   SharedApi.examples ->
-    configPath = temp.path('config-wrapper')
+    configPath = temp.path('scope-wrapper')
     configWrapper = new ScopeWrapper(atom.config, configPath)
     [configWrapper, configPath]

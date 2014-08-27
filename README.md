@@ -2,6 +2,8 @@
 
 A package for exploring the concept of a layered configuration approach for Atom.
 
+*Note:* I haven't spent a lot of time thinking about the names of the classes in this package because this is just a proof-of-concept. I fully expect that if this functionality ends up being integrated into Atom proper that the class names will change.
+
 ## General Concept
 
 Configuration values are stored in generic objects which are retrieved from a configuration store, typically a file in disk storage. Each configuration object is responsible for updating the in-memory settings when its backing store is updated.

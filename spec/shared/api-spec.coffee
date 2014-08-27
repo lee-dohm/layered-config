@@ -20,6 +20,9 @@ module.exports =
       it 'wraps the passed configuration object', ->
         expect(configWrapper.wrappedConfig).toBe(atom.config)
 
+      it 'remembers the passed configuration path', ->
+        expect(configWrapper.configPath).toBe(configPath)
+
       describe '.get()', ->
         it 'returns undefined if nothing has a setting for that value', ->
           expect(configWrapper.get('foozle.bamboozle')).not.toBeDefined()

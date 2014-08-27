@@ -27,6 +27,11 @@ In order for this to happen, the following configuration objects are created:
 1. `ConfigWrapper` wraps the `ScopeWrapper` object to provide project-specific general overrides
 1. `ScopeWrapper` wraps the `ConfigWrapper` object to provide project-specific syntax-specific setting overrides
 
+I propose an API be added to the general configuration object for constructing the appropriately wrapped configuration objects:
+
+* `atom.config` will refer to a project-specific configuration object (objects 1 and 3 above)
+* `atom.config.forScope(scopeName)` will refer to a project-specific syntax-specific configuration object (objects 1-4 above)
+
 ## API
 
 This is the basic API that all conforming configuration classes will use.

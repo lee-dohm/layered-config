@@ -5,7 +5,7 @@ CSON = require 'season'
 
 module.exports =
   examples: (init) ->
-    describe '(shared)', ->
+    describe 'conforms to the configuration API', ->
       [configWrapper, configPath] = []
 
       beforeEach ->

@@ -1,21 +1,10 @@
 temp = require 'temp'
 
 ScopeWrapper = require '../lib/scope-wrapper'
+SharedApi = require './shared/api-spec'
 
 describe 'ScopeWrapper', ->
-  scopeWrapper = null
-  configPath = null
-
-  beforeEach ->
-    atom.config.defaultSettings =
-      foo:
-        bar: 9
-        baz: 9
-
-    configPath = temp.path('layered-config')
-
-    atom.config.set('foo.bar', 3)
-    scopeWrapper = new ScopeWrapper(atom.config, configPath, 'source.ruby')
-
-  it 'wraps the passed configuration object', ->
-    expect(scopeWrapper.wrappedConfig).toBe(atom.config)
+  SharedApi.examples ->
+    configPath = temp.path('config-wrapper')
+    configWrapper = new ScopeWrapper(atom.config, configPath)
+    [configWrapper, configPath]

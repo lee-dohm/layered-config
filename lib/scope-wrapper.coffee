@@ -1,4 +1,4 @@
+ConfigWrapper = require './config-wrapper'
+
 module.exports =
-class ScopeWrapper
-  constructor: (@wrappedConfig, @configPath, @root) ->
-    @settings = {}
+class ScopeWrapper extends ConfigWrapper

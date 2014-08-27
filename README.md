@@ -31,6 +31,7 @@ I propose an API be added to the general configuration object for constructing t
 
 * `atom.config` will refer to a project-specific configuration object (objects 1 and 3 above)
 * `atom.config.forScope(scopeName)` will refer to a project-specific syntax-specific configuration object (objects 1-4 above)
+* `editor.config` will refer to a project-specific syntax-specific configuration object (objects 1-4 above)
 
 ## API
 

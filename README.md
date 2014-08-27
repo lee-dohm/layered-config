@@ -10,6 +10,23 @@ Configuration values are stored in generic objects which are retrieved from a co
 
 The layered effect is achieved by a configuration object wrapping another configuration object. This can be done multiple times to create a chain of configuration stores. The outer object's values take precedence over the inner object's values, much as the user's configuration values take precedence over the default values in the standard configuration class.
 
+### Wrapper Strategy
+
+The basic idea is for settings to bubble up in the following fashion from most priority to least priority:
+
+1. Project-specific syntax-specific settings
+1. Project-specific settings
+1. User-configured syntax-specific settings
+1. User-configured settings
+1. Default settings
+
+In order for this to happen, the following configuration objects are created:
+
+1. Standard `Configuration` object provides default and basic user-configured settings
+1. `ScopeWrapper` wraps the `Configuration` object to provide syntax-specific setting overrides
+1. `ConfigWrapper` wraps the `ScopeWrapper` object to provide project-specific general overrides
+1. `ScopeWrapper` wraps the `ConfigWrapper` object to provide project-specific syntax-specific setting overrides
+
 ## API
 
 This is the basic API that all conforming configuration classes will use.
